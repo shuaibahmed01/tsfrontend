@@ -170,7 +170,7 @@ const CalendarPage = () => {
     };
 
     fetchData();
-  }, [dispname, accountInfo, maxAppointments, accountType, name]);
+  }, [dispname, accountInfo, maxAppointments, accountType, name, getEventColor]);
 
   // useEffect(() => {
   //   console.log('MAX APPOINTMENTS CHANGED:', maxAppointments);
