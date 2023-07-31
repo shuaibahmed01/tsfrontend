@@ -44,26 +44,27 @@ const CalendarPage = () => {
   }, [name, accountInfo, CalendarData, CCname]);
   
 
-  const getEventColor = (event) => {
-    if (!event.title) return 'gray';
-
-    if (accountInfo?.accountType === 'Organizer') {
-      return 'matt lightblue';
-    } else if (accountInfo?.accountType === 'Client' && event.title === accountInfo?.name) {
-      return 'matt lightblue';
-    } else if (accountInfo?.accountType === 'Client' && event.title !== accountInfo?.name) {
-      return 'gray';
-    } else if (accountType === 'Organizer') {
-      return 'matt lightblue';
-    } else if (accountType === 'Client' && event.title === name) {
-      return 'matt lightblue';
-    } else {
-      return 'gray';
-    }
-  };
-
  
   useEffect(() => {
+
+    const getEventColor = (event) => {
+      if (!event.title) return 'gray';
+  
+      if (accountInfo?.accountType === 'Organizer') {
+        return 'matt lightblue';
+      } else if (accountInfo?.accountType === 'Client' && event.title === accountInfo?.name) {
+        return 'matt lightblue';
+      } else if (accountInfo?.accountType === 'Client' && event.title !== accountInfo?.name) {
+        return 'gray';
+      } else if (accountType === 'Organizer') {
+        return 'matt lightblue';
+      } else if (accountType === 'Client' && event.title === name) {
+        return 'matt lightblue';
+      } else {
+        return 'gray';
+      }
+    };
+    
     const fetchData = async () => {
       try {
         if (dispname) {
