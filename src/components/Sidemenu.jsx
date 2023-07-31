@@ -1,7 +1,7 @@
-import {useNavigate, useLocation } from 'react-router-dom';
-import { useRef, useEffect, useState} from 'react'
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState} from 'react'
 import axios from 'axios';
-import { format, isToday } from 'date-fns';
+import { format } from 'date-fns';
 
 const SideMenu = () => {
   const [showAppointments, setShowAppointments] = useState(false);
@@ -30,21 +30,21 @@ const SideMenu = () => {
      } 
    }, [location]);
    
-   const convertTo24HourFormat = (timeStr) => {
-    let [time, meridian] = timeStr.split(' ');
-    let [hours, minutes] = time.split(':');
+  //  const convertTo24HourFormat = (timeStr) => {
+  //   let [time, meridian] = timeStr.split(' ');
+  //   let [hours, minutes] = time.split(':');
   
-    if (meridian === 'PM' || meridian === 'pm') {
-      hours = parseInt(hours) + 12;
-    }
+  //   if (meridian === 'PM' || meridian === 'pm') {
+  //     hours = parseInt(hours) + 12;
+  //   }
   
-    if (meridian === 'AM' || meridian === 'am') {
-      if (hours === '12') {
-        hours = '00';
-      }
-    }
-    return `${hours}:${minutes}`;
-  }
+  //   if (meridian === 'AM' || meridian === 'am') {
+  //     if (hours === '12') {
+  //       hours = '00';
+  //     }
+  //   }
+  //   return `${hours}:${minutes}`;
+  // }
    /* set displayname */
    useEffect(() => {
      if (accountInfo) {
@@ -101,7 +101,7 @@ const SideMenu = () => {
     };
 
     fetchData();
-  }, [accountInfo]);
+  }, [accountInfo, maxAppointments, newvariable]);
 
   
 

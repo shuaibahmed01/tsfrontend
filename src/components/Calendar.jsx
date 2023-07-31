@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -41,7 +41,7 @@ const CalendarPage = () => {
     } else if (CalendarData) {
       setdispname(CCname);
     }
-  }, [name, accountInfo, CalendarData]);
+  }, [name, accountInfo, CalendarData, CCname]);
   
 
   const getEventColor = (event) => {
@@ -67,7 +67,7 @@ const CalendarPage = () => {
     const fetchData = async () => {
       try {
         if (dispname) {
-          const response = await axios.get('http://localhost:8000/api/fetch-data', {
+          const response = await axios.get('https://timesyncv2-a367bdb60782.herokuapp.com/api/fetch-data', {
             params: {
               tableName: dispname,
             },
@@ -170,7 +170,7 @@ const CalendarPage = () => {
     };
 
     fetchData();
-  }, [dispname, accountInfo, maxAppointments]);
+  }, [dispname, accountInfo, maxAppointments, accountType, getEventColor, name]);
 
   // useEffect(() => {
   //   console.log('MAX APPOINTMENTS CHANGED:', maxAppointments);
@@ -287,7 +287,7 @@ const CalendarPage = () => {
 
     console.log('FORMDATA2:',formData2)
 
-    const hourResponse = await axios.post('http://localhost:8000/api/hour-check', formData2, {
+    const hourResponse = await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/hour-check', formData2, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -361,7 +361,7 @@ const CalendarPage = () => {
         dispname: dispname,
       };
 
-      const response = await axios.post('http://localhost:8000/api/appt-create', formData, {
+        await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/appt-create', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -427,7 +427,7 @@ const CalendarPage = () => {
       
   
       // Make the API request to delete the appointment
-      const response = await axios.delete('http://localhost:8000/api/delete-appt', { data: requestData });
+      await axios.delete('https://timesyncv2-a367bdb60782.herokuapp.com/api/delete-appt', { data: requestData });
       
       const startTime = convertTo24HourFormat(selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       const selectedDate = selectedEvent.start.toISOString().split('T')[0];
@@ -505,7 +505,7 @@ const CalendarPage = () => {
       dispname: dispname,
     };
 
-    const hourResponse2 = await axios.post('http://localhost:8000/api/hour-check', formData3, {
+    const hourResponse2 = await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/hour-check', formData3, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -583,7 +583,7 @@ const CalendarPage = () => {
         requestData.start_time = requestData.start_time.replace((requestData.start_time.slice(0,2)), (((Number(requestData.start_time.slice(0,2))) + 12).toString()));
       }
 
-      const response = await axios.delete('http://localhost:8000/api/delete-appt', { data: requestData });
+      await axios.delete('https://timesyncv2-a367bdb60782.herokuapp.com/api/delete-appt', { data: requestData });
 
       const oldStartTime = convertTo24HourFormat(selectedEvent.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       const oldSelectedDate = selectedEvent.start.toISOString().split('T')[0];
@@ -596,7 +596,7 @@ const CalendarPage = () => {
       });
 
       
-      const newResponse = await axios.post('http://localhost:8000/api/appt-create', newData, {
+      await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/appt-create', newData, {
         headers: {
           'Content-Type': 'application/json'
         }
