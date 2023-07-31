@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -44,27 +44,26 @@ const CalendarPage = () => {
   }, [name, accountInfo, CalendarData, CCname]);
   
 
+  const getEventColor = useCallback((event) => {
+    if (!event.title) return 'gray';
+    if (accountInfo?.accountType === 'Organizer') {
+      return 'matt lightblue';
+    } else if (accountInfo?.accountType === 'Client' && event.title === accountInfo?.name) {
+      return 'matt lightblue';
+    } else if (accountInfo?.accountType === 'Client' && event.title !== accountInfo?.name) {
+      return 'gray';
+    } else if (accountType === 'Organizer') {
+      return 'matt lightblue';
+    } else if (accountType === 'Client' && event.title === name) {
+      return 'matt lightblue';
+    } else {
+      return 'gray';
+    }
+  }, [accountInfo, name, accountType]);
+  
  
   useEffect(() => {
 
-    const getEventColor = (event) => {
-      if (!event.title) return 'gray';
-  
-      if (accountInfo?.accountType === 'Organizer') {
-        return 'matt lightblue';
-      } else if (accountInfo?.accountType === 'Client' && event.title === accountInfo?.name) {
-        return 'matt lightblue';
-      } else if (accountInfo?.accountType === 'Client' && event.title !== accountInfo?.name) {
-        return 'gray';
-      } else if (accountType === 'Organizer') {
-        return 'matt lightblue';
-      } else if (accountType === 'Client' && event.title === name) {
-        return 'matt lightblue';
-      } else {
-        return 'gray';
-      }
-    };
-    
     const fetchData = async () => {
       try {
         if (dispname) {
@@ -107,7 +106,7 @@ const CalendarPage = () => {
             }
           });
           setAppointmentCounts(counts);
-          
+
 
           const events = data.map((event) => {
             const eventColor = getEventColor(event);
@@ -171,7 +170,7 @@ const CalendarPage = () => {
     };
 
     fetchData();
-  }, [dispname, accountInfo, maxAppointments, accountType, getEventColor, name]);
+  }, [dispname, accountInfo, maxAppointments, accountType, name]);
 
   // useEffect(() => {
   //   console.log('MAX APPOINTMENTS CHANGED:', maxAppointments);
