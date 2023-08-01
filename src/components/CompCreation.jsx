@@ -33,10 +33,10 @@ const Compcreation = () => {
         try {
             const registrationData = JSON.parse(localStorage.getItem('registrationData'));
             const { name, accountType, email, password } = registrationData
-
+            console.log('regdata', registrationData)
             const CalendarData = { name, CCname, accountType};
             localStorage.setItem('CalendarData', JSON.stringify(CalendarData));
-
+            console.log('caldata', CalendarData)
 
             const formData = {
                 name,
@@ -46,7 +46,7 @@ const Compcreation = () => {
                 CCname,
                 CCkey
             };
-
+            console.log('creation details', formData)
             const response = await axios.post('http://localhost:8000/api/cc-create', formData, {
               headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const Compcreation = () => {
             });
 
              // Handle the response or perform additional actions as needed
-             console.log(response.data);
+             console.log('creation fetched data', response.data);
              
              if (response.data.message === 'Data stored successfully'){
                 navigate('/calendar')
@@ -66,7 +66,7 @@ const Compcreation = () => {
               }
 
         } catch (error) { 
-            console.log(error);
+            console.log('THIS IS THE ERROR:',error);
             setErrorMessage('Company Name Not Available. Please Choose Another Name');
         }
 
