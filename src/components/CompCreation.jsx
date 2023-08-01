@@ -47,7 +47,7 @@ const Compcreation = () => {
                 CCkey
             };
             console.log('creation details', formData)
-            const response = await axios.post('http://localhost:8000/api/cc-create', formData, {
+            const response = await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/cc-create', formData, {
               headers: {
                 'Content-Type': 'application/json'
               }
