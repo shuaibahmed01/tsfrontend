@@ -64,8 +64,11 @@ const SideMenu = () => {
 
 
    useEffect(() => {
+    console.log('SIDEMENU FETCH (IN USE EFFECT')
     const fetchData = async () => {
+      console.log('SIDEMENU FETCH DATA CALLED (BEFORE TRY)')
       try {
+        console.log('SIDEMENU FETCHDATA CALLED')
         const response = await axios.get('https://timesyncv2-a367bdb60782.herokuapp.com/api/fetch-data', {
           params: {
             tableName: newvariable,

@@ -63,9 +63,11 @@ const CalendarPage = () => {
   
  
   useEffect(() => {
-
+    console.log('CALENDAR FETCH (IN USE EFFECT')
     const fetchData = async () => {
+      console.log('CALENDAR FETCH DATA CALLED (BEFORE TRY')
       try {
+        console.log('CALENDAR FETCH DATA CALLED')
         if (dispname) {
           const response = await axios.get('https://timesyncv2-a367bdb60782.herokuapp.com/api/fetch-data', {
             params: {
