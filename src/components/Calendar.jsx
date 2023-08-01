@@ -69,6 +69,7 @@ const CalendarPage = () => {
       try {
         console.log('CALENDAR FETCH DATA CALLED')
         if (dispname) {
+          console.log('dispname condition triggered')
           const response = await axios.get('https://timesyncv2-a367bdb60782.herokuapp.com/api/fetch-data', {
             params: {
               tableName: dispname,
