@@ -32,6 +32,14 @@ const HomePage = () => {
     navigate('/register');
   }
 
+  const handlePP = () => {
+    navigate('/PrivacyP')
+  }
+
+  const handleTOS = () => {
+    navigate('/TOS')
+  }
+
   return (
     <div className="intro-container">
       <h1 className={`fade-in-intro ${animationFinished ? '' : 'stay-visible'}`}>{word}</h1>
@@ -53,11 +61,11 @@ const HomePage = () => {
           </div>
           <div className="footer-section">
             <div className="footer-link">
-              <a href="/PrivacyPolicy">Privacy Policy</a>
+              <a onClick={handlePP}>Privacy Policy</a>
             </div>
             <div className="divider"></div>
             <div className="footer-link">
-              <a href="/TOS">Terms of Use</a>
+              <a onClick={handleTOS}>Terms of Use</a>
             </div>
           </div>
       </div>
