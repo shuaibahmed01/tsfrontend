@@ -78,7 +78,7 @@ const Compcreation = () => {
             </div>
             <div className='CCinfo'>
                 <h4 className="other-larger-header2">Create Organization Credentials</h4>
-                <form className='login-form' onSubmit={handleSubmit}>
+                <form className='CompCreation-form' onSubmit={handleSubmit}>
                     <label htmlFor='email'>Organization:</label>
                     <input value={CCname} onChange={(e) => setCompName(e.target.value)} type="name" placeholder='Enter name here' id='email' name='email'/>
                     <label htmlFor='password'>Organization Key (4-digit PIN):</label>
