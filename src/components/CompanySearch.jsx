@@ -55,7 +55,7 @@ const CompanySearch = () => {
 
         } catch (error) { 
             console.log(error);
-            setErrorMessage('An error occured. Please Try Again');
+            setErrorMessage('Company Not Found. Please Try Again');
         }
     }
 
