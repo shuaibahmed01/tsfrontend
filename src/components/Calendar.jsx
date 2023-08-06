@@ -118,7 +118,8 @@ const CalendarPage = () => {
               title: event.title,
               start: `${event.date}T${event.start_time}:00`,
               end: `${event.date}T${event.end_time}:00`,
-              color: eventColor
+              color: eventColor,
+              event_details: event.event_details,
 
               // Add other properties as needed
             };
@@ -362,6 +363,7 @@ const CalendarPage = () => {
         start_time: appointmentDetails.start_time,
         end_time: appointmentDetails.end_time,
         dispname: dispname,
+        other_details: appointmentDetails.otherDetails
       };
 
         await axios.post('https://timesyncv2-a367bdb60782.herokuapp.com/api/appt-create', formData, {
@@ -703,7 +705,7 @@ const CalendarPage = () => {
                 placeholder='HH:MM AM/PM'
                 onChange={handleInputChange}
               />
-              <label htmlFor='otherDetails'>Other Details (Optional):</label>
+              <label htmlFor='otherDetails'>Event Description (Optional):</label>
               <input
                 type='text'
                 id='otherDetails'
@@ -815,7 +817,7 @@ const CalendarPage = () => {
           <p>Name: {selectedEvent.title}</p>
           <p>Start Time: {selectedEvent.start.toLocaleString()}</p>
           <p>End Time: {selectedEvent.end.toLocaleString()}</p>
-
+          <p>Event Details: {selectedEvent.event_details}</p>
           <div className='popup-buttons'>
             <button className='popup-button' type='button' onClick={handleCancelAppointment}>
               Cancel Appointment
