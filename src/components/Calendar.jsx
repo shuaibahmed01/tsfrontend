@@ -202,6 +202,7 @@ const CalendarPage = () => {
     date: '',
     start_time: '',
     end_time: '',
+    otherDetails: '',
   });
 
   /*Appointment Creation*/
@@ -247,6 +248,10 @@ const CalendarPage = () => {
 
     setErrorMessage('');
     setFormError('');
+
+    if (appointmentDetails.otherDetails === '') {
+      appointmentDetails.otherDetails = 'No Details Specified'
+    }
 
     // Check if all form fields are filled
     if (!appointmentDetails.name || !appointmentDetails.date || !appointmentDetails.start_time || !appointmentDetails.end_time) {
@@ -353,6 +358,7 @@ const CalendarPage = () => {
       title: appointmentDetails.name,
       start: `${appointmentDetails.date}T${appointmentDetails.start_time.slice(0,5)}:00`,
       end: `${appointmentDetails.date}T${appointmentDetails.end_time.slice(0,5)}:00`,
+      event_details: appointmentDetails.event_details
       // Add other properties as needed
     };
 
@@ -396,6 +402,8 @@ const CalendarPage = () => {
 
   const handleEventClick = (clickInfo) => {
     const clickedEvent = clickInfo.event;
+    console.log(clickedEvent)
+    console.log(clickedEvent.extendedProps.event_details);
   // Check if the event title is not empty
     if (clickedEvent.title !== '') {
       setSelectedEvent(clickedEvent);
@@ -470,6 +478,10 @@ const CalendarPage = () => {
 
     setErrorMessage('');
     setReformError('');
+
+    if (rescheduleDetails.otherDetails === '') {
+      rescheduleDetails.otherDetails = 'No Details Specified'
+    }
     
     if (!rescheduleDetails.name || !rescheduleDetails.date || !rescheduleDetails.start_time || !rescheduleDetails.end_time) {
       setReformError('Please fill out all the required fields.');
@@ -571,7 +583,10 @@ const CalendarPage = () => {
         date: rescheduleDetails.date,
         start_time: rescheduleDetails.start_time,
         end_time: rescheduleDetails.end_time,
+        other_details: rescheduleDetails.otherDetails
       };
+
+      console.log("newData:", newData)
   
       // Delete the current event from the backend
       const requestData = {
@@ -791,6 +806,19 @@ const CalendarPage = () => {
                   }))
                 }
               />
+              <label htmlFor='otherDetails'>Event Description (Optional):</label>
+              <input
+                type='text'
+                id='reschedule-otherDetails'
+                name='otherDetails'
+                value={rescheduleDetails.otherDetails}
+                onChange={(e) =>
+                  setRescheduleDetails((prevDetails) => ({
+                    ...prevDetails,
+                    otherDetails: e.target.value,
+                  }))
+                }
+                />
               {errorMessage && <div className="error2">{errorMessage}</div>}
               {ReformError && <div className="error2">{ReformError}</div>}
               <div className='popup-buttons'>
@@ -817,7 +845,7 @@ const CalendarPage = () => {
           <p>Name: {selectedEvent.title}</p>
           <p>Start Time: {selectedEvent.start.toLocaleString()}</p>
           <p>End Time: {selectedEvent.end.toLocaleString()}</p>
-          <p>Event Details: {selectedEvent.event_details}</p>
+          <p>Event Details: {selectedEvent.extendedProps.event_details}</p>
           <div className='popup-buttons'>
             <button className='popup-button' type='button' onClick={handleCancelAppointment}>
               Cancel Appointment
